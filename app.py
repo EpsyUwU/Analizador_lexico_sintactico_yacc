@@ -31,6 +31,9 @@ def analyze():
     counts = {key: 0 for key in token_categories.keys()}
     counts["total"] = 0
 
+    analizador_sintactico.reset_parse_error()
+
+
     analizador_sintactico.parser.parse(code)
 
 

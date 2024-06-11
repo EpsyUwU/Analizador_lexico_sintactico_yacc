@@ -24,8 +24,10 @@ def p_error(p):
         parse_error_message = f"Syntax error at token {p.type} - {p.value}, line {p.lineno}"
     else:
         parse_error_message = "Syntax error at EOF"
+
+def reset_parse_error():
+    global parse_error_message
+    parse_error_message = None
         
-
-
 parser = yacc.yacc()
 
