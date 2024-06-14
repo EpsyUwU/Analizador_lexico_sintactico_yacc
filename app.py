@@ -1,4 +1,3 @@
-# app.py
 from flask import Flask, request, render_template
 import analizador_lexico
 import analizador_sintactico
@@ -21,7 +20,7 @@ def analyze():
         "reserved": set(analizador_lexico.reserved.values()),
         "identifier": {"ID"},
         "number": {"NUMBER"},
-        "symbol": {"SEMICOLON", "DOT"},
+        "symbol": {"SEMICOLON", "DOT", "ASSIGN", "PLUS", "MINUS", "LE", "LT", "GE", "GT", "EQ", "NE"},
         "paren_left": {"LPAREN"},
         "paren_right": {"RPAREN"},
         "brace_left": {"LBRACE"},
@@ -31,16 +30,19 @@ def analyze():
     counts = {key: 0 for key in token_categories.keys()}
     counts["total"] = 0
 
+    # Resetear el mensaje de error de análisis antes de cada análisis
     analizador_sintactico.reset_parse_error()
 
+    # Reiniciar el número de línea del lexer antes de cada análisis
+    analizador_lexico.lexer.lineno = 1
 
-    analizador_sintactico.parser.parse(code)
-
+    # Realizar el análisis sintáctico
+    analizador_sintactico.parser.parse(code, lexer=analizador_lexico.lexer)
 
     if analizador_sintactico.parse_error_message:
         error_message = analizador_sintactico.parse_error_message  
     else:
-        print("Syntax is valid")
+        syntax_valid = True
         error_message = None
     
     for token in tokens:

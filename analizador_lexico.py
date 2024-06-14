@@ -12,13 +12,20 @@ reserved = {
     'args': 'ARGS',
     'static': 'STATIC',
     'void': 'VOID',
-    '"': 'QUOTE',
+    'for': 'FOR',
+    'int': 'INT',
+    'float': 'FLOAT',
+    'char': 'CHAR',
+    'number': 'NUMBER',
+    'if': 'IF',
+    'else': 'ELSE'
 }
 
-# Actualización de la lista de tokens para incluir palabras reservadas automáticamente
+# Lista de tokens
 tokens = [
     'ID', 'LBRACE', 'RBRACE', 'LPAREN', 'RPAREN', 'LBRACKET', 'RBRACKET', 
-    'STRING_LITERAL', 'SEMICOLON', 'DOT',
+    'STRING_LITERAL', 'SEMICOLON', 'DOT', 'ASSIGN', 'PLUS', 'MINUS', 'NUMBER',
+    'LE', 'LT', 'GE', 'GT', 'EQ', 'NE'
 ] + list(reserved.values())
 
 # Expresiones regulares para tokens simples
@@ -30,6 +37,15 @@ t_LBRACKET = r'\['
 t_RBRACKET = r'\]'
 t_SEMICOLON = r';'
 t_DOT = r'\.'
+t_ASSIGN = r'='
+t_PLUS = r'\+'
+t_MINUS = r'-'
+t_LE = r'<='
+t_LT = r'<'
+t_GE = r'>='
+t_GT = r'>'
+t_EQ = r'=='
+t_NE = r'!='
 
 # Reglas para tokens con acciones adicionales
 def t_STRING_LITERAL(t):
@@ -40,7 +56,13 @@ def t_STRING_LITERAL(t):
 # Regla para identificadores y palabras reservadas
 def t_ID(t):
     r'[a-zA-Z_][a-zA-Z0-9_]*'
-    t.type = reserved.get(t.value,'ID')  # Verifica las palabras reservadas
+    t.type = reserved.get(t.value, 'ID')  # Verifica las palabras reservadas
+    return t
+
+# Regla para números
+def t_NUMBER(t):
+    r'\d+'
+    t.value = int(t.value)
     return t
 
 # Ignorar espacios y tabulaciones
@@ -57,7 +79,7 @@ def t_SPACE(t):
 
 # Regla para manejar errores
 def t_error(t):
-    print(f"Illegal character")
+    print(f"Illegal character '{t.value[0]}' at line {t.lexer.lineno}")
     t.lexer.skip(1)
 
 # Función para tokenizar una cadena de código

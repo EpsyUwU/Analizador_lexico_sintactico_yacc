@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'ARGS CLASS DOT ID LBRACE LBRACKET LPAREN MAIN OUT PRINTLN PUBLIC QUOTE RBRACE RBRACKET RPAREN SEMICOLON STATIC STRING STRING_LITERAL SYSTEM VOIDprogram : PUBLIC CLASS ID LBRACE class_body RBRACEclass_body : PUBLIC STATIC VOID MAIN LPAREN STRING LBRACKET RBRACKET ARGS RPAREN LBRACE statement RBRACEstatement : SYSTEM DOT OUT DOT PRINTLN LPAREN STRING_LITERAL RPAREN SEMICOLON\n                 | SYSTEM DOT OUT DOT PRINTLN LPAREN ID RPAREN SEMICOLON'
+_lr_signature = 'leftPLUSMINUSleftLTLEGTGEEQNEARGS ASSIGN CHAR CLASS DOT ELSE EQ FLOAT FOR GE GT ID IF INT LBRACE LBRACKET LE LPAREN LT MAIN MINUS NE NUMBER NUMBER OUT PLUS PRINTLN PUBLIC RBRACE RBRACKET RPAREN SEMICOLON STATIC STRING STRING_LITERAL SYSTEM VOIDprogram : PUBLIC CLASS ID LBRACE class_body RBRACE \n               | for_statementclass_body : PUBLIC STATIC VOID MAIN LPAREN STRING LBRACKET RBRACKET ARGS RPAREN LBRACE statement_list RBRACEstatement_list : statement\n                      | statement_list statementstatement : SYSTEM DOT OUT DOT PRINTLN LPAREN expression RPAREN SEMICOLON\n                 | declaration SEMICOLON\n                 | for_statementfor_statement : INT ID SEMICOLON FOR LPAREN for_init SEMICOLON expression SEMICOLON for_update RPAREN LBRACE statement_list RBRACEfor_init : declaration\n                | expression\n                | emptyfor_update : ID PLUS PLUS\n                  | ID MINUS MINUSdeclaration : ID ASSIGN expression \n                   | type_specifier IDtype_specifier : INT\n                      | FLOAT\n                      | CHARexpression : ID\n                  | NUMBER\n                  | ID ASSIGN expression \n                  | expression PLUS expression\n                  | expression PLUS PLUS expression\n                  | expression MINUS expression\n                  | expression LT expression\n                  | expression LE expression\n                  | expression GT expression\n                  | expression GE expression\n                  | expression EQ expression\n                  | expression NE expression\n                  | STRING_LITERALempty :'
     
-_lr_action_items = {'PUBLIC':([0,5,],[2,6,]),'$end':([1,9,],[0,-1,]),'CLASS':([2,],[3,]),'ID':([3,26,],[4,28,]),'LBRACE':([4,17,],[5,18,]),'STATIC':([6,],[8,]),'RBRACE':([7,19,21,31,32,],[9,21,-2,-3,-4,]),'VOID':([8,],[10,]),'MAIN':([10,],[11,]),'LPAREN':([11,25,],[12,26,]),'STRING':([12,],[13,]),'LBRACKET':([13,],[14,]),'RBRACKET':([14,],[15,]),'ARGS':([15,],[16,]),'RPAREN':([16,27,28,],[17,29,30,]),'SYSTEM':([18,],[20,]),'DOT':([20,23,],[22,24,]),'OUT':([22,],[23,]),'PRINTLN':([24,],[25,]),'STRING_LITERAL':([26,],[27,]),'SEMICOLON':([29,30,],[31,32,]),}
+_lr_action_items = {'PUBLIC':([0,9,],[2,11,]),'INT':([0,13,67,71,72,75,78,79,81,82,85,92,],[4,16,69,69,-4,-8,-9,-5,-7,69,69,-6,]),'$end':([1,3,15,78,],[0,-2,-1,-9,]),'CLASS':([2,],[5,]),'ID':([4,5,13,16,22,25,26,28,29,30,31,32,33,34,35,36,37,44,53,54,67,69,71,72,75,77,78,79,81,82,85,89,92,],[6,7,17,-17,38,-18,-19,40,40,40,40,40,40,40,40,40,40,40,40,58,70,6,70,-4,-8,40,-9,-5,-7,70,70,40,-6,]),'SEMICOLON':([6,13,17,18,19,20,21,23,24,38,40,41,42,43,45,46,47,48,49,50,51,55,57,74,83,91,],[8,-33,-20,29,-11,-10,-12,-21,-32,-16,-20,-15,54,-23,-25,-26,-27,-28,-29,-30,-31,-24,-22,81,-15,92,]),'LBRACE':([7,63,76,],[9,67,82,]),'FOR':([8,],[10,]),'LPAREN':([10,39,88,],[13,52,89,]),'STATIC':([11,],[14,]),'RBRACE':([12,71,72,75,78,79,81,85,87,92,],[15,78,-4,-8,-9,-5,-7,87,-3,-6,]),'NUMBER':([13,28,29,30,31,32,33,34,35,36,37,44,53,77,89,],[23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,]),'STRING_LITERAL':([13,28,29,30,31,32,33,34,35,36,37,44,53,77,89,],[24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,]),'FLOAT':([13,67,71,72,75,78,79,81,82,85,92,],[25,25,25,-4,-8,-9,-5,-7,25,25,-6,]),'CHAR':([13,67,71,72,75,78,79,81,82,85,92,],[26,26,26,-4,-8,-9,-5,-7,26,26,-6,]),'VOID':([14,],[27,]),'ASSIGN':([17,40,70,],[28,53,77,]),'PLUS':([17,19,23,24,30,40,41,42,43,45,46,47,48,49,50,51,55,57,58,61,83,90,],[-20,30,-21,-32,44,-20,30,30,-23,-25,-26,-27,-28,-29,-30,-31,-24,30,61,65,30,30,]),'MINUS':([17,19,23,24,40,41,42,43,45,46,47,48,49,50,51,55,57,58,62,83,90,],[-20,31,-21,-32,-20,31,31,-23,-25,-26,-27,-28,-29,-30,-31,-24,31,62,66,31,31,]),'LT':([17,19,23,24,40,41,42,43,45,46,47,48,49,50,51,55,57,83,90,],[-20,32,-21,-32,-20,32,32,32,32,-26,-27,-28,-29,-30,-31,32,32,32,32,]),'LE':([17,19,23,24,40,41,42,43,45,46,47,48,49,50,51,55,57,83,90,],[-20,33,-21,-32,-20,33,33,33,33,-26,-27,-28,-29,-30,-31,33,33,33,33,]),'GT':([17,19,23,24,40,41,42,43,45,46,47,48,49,50,51,55,57,83,90,],[-20,34,-21,-32,-20,34,34,34,34,-26,-27,-28,-29,-30,-31,34,34,34,34,]),'GE':([17,19,23,24,40,41,42,43,45,46,47,48,49,50,51,55,57,83,90,],[-20,35,-21,-32,-20,35,35,35,35,-26,-27,-28,-29,-30,-31,35,35,35,35,]),'EQ':([17,19,23,24,40,41,42,43,45,46,47,48,49,50,51,55,57,83,90,],[-20,36,-21,-32,-20,36,36,36,36,-26,-27,-28,-29,-30,-31,36,36,36,36,]),'NE':([17,19,23,24,40,41,42,43,45,46,47,48,49,50,51,55,57,83,90,],[-20,37,-21,-32,-20,37,37,37,37,-26,-27,-28,-29,-30,-31,37,37,37,37,]),'RPAREN':([23,24,40,43,45,46,47,48,49,50,51,55,57,59,65,66,68,90,],[-21,-32,-20,-23,-25,-26,-27,-28,-29,-30,-31,-24,-22,63,-13,-14,76,91,]),'MAIN':([27,],[39,]),'STRING':([52,],[56,]),'LBRACKET':([56,],[60,]),'RBRACKET':([60,],[64,]),'ARGS':([64,],[68,]),'SYSTEM':([67,71,72,75,78,79,81,82,85,92,],[73,73,-4,-8,-9,-5,-7,73,73,-6,]),'DOT':([73,84,],[80,86,]),'OUT':([80,],[84,]),'PRINTLN':([86,],[88,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'program':([0,],[1,]),'class_body':([5,],[7,]),'statement':([18,],[19,]),}
+_lr_goto_items = {'program':([0,],[1,]),'for_statement':([0,67,71,82,85,],[3,75,75,75,75,]),'class_body':([9,],[12,]),'for_init':([13,],[18,]),'expression':([13,28,29,30,31,32,33,34,35,36,37,44,53,77,89,],[19,41,42,43,45,46,47,48,49,50,51,55,57,83,90,]),'declaration':([13,67,71,82,85,],[20,74,74,74,74,]),'empty':([13,],[21,]),'type_specifier':([13,67,71,82,85,],[22,22,22,22,22,]),'for_update':([54,],[59,]),'statement_list':([67,82,],[71,85,]),'statement':([67,71,82,85,],[72,79,72,79,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,8 +27,37 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> program","S'",1,None,None,None),
-  ('program -> PUBLIC CLASS ID LBRACE class_body RBRACE','program',6,'p_program','analizador_sintactico.py',10),
-  ('class_body -> PUBLIC STATIC VOID MAIN LPAREN STRING LBRACKET RBRACKET ARGS RPAREN LBRACE statement RBRACE','class_body',13,'p_class_body','analizador_sintactico.py',13),
-  ('statement -> SYSTEM DOT OUT DOT PRINTLN LPAREN STRING_LITERAL RPAREN SEMICOLON','statement',9,'p_statement','analizador_sintactico.py',16),
-  ('statement -> SYSTEM DOT OUT DOT PRINTLN LPAREN ID RPAREN SEMICOLON','statement',9,'p_statement','analizador_sintactico.py',17),
+  ('program -> PUBLIC CLASS ID LBRACE class_body RBRACE','program',6,'p_program','analizador_sintactico.py',12),
+  ('program -> for_statement','program',1,'p_program','analizador_sintactico.py',13),
+  ('class_body -> PUBLIC STATIC VOID MAIN LPAREN STRING LBRACKET RBRACKET ARGS RPAREN LBRACE statement_list RBRACE','class_body',13,'p_class_body','analizador_sintactico.py',16),
+  ('statement_list -> statement','statement_list',1,'p_statement_list','analizador_sintactico.py',19),
+  ('statement_list -> statement_list statement','statement_list',2,'p_statement_list','analizador_sintactico.py',20),
+  ('statement -> SYSTEM DOT OUT DOT PRINTLN LPAREN expression RPAREN SEMICOLON','statement',9,'p_statement','analizador_sintactico.py',23),
+  ('statement -> declaration SEMICOLON','statement',2,'p_statement','analizador_sintactico.py',24),
+  ('statement -> for_statement','statement',1,'p_statement','analizador_sintactico.py',25),
+  ('for_statement -> INT ID SEMICOLON FOR LPAREN for_init SEMICOLON expression SEMICOLON for_update RPAREN LBRACE statement_list RBRACE','for_statement',14,'p_for_statement','analizador_sintactico.py',28),
+  ('for_init -> declaration','for_init',1,'p_for_init','analizador_sintactico.py',31),
+  ('for_init -> expression','for_init',1,'p_for_init','analizador_sintactico.py',32),
+  ('for_init -> empty','for_init',1,'p_for_init','analizador_sintactico.py',33),
+  ('for_update -> ID PLUS PLUS','for_update',3,'p_for_update','analizador_sintactico.py',36),
+  ('for_update -> ID MINUS MINUS','for_update',3,'p_for_update','analizador_sintactico.py',37),
+  ('declaration -> ID ASSIGN expression','declaration',3,'p_declaration','analizador_sintactico.py',40),
+  ('declaration -> type_specifier ID','declaration',2,'p_declaration','analizador_sintactico.py',41),
+  ('type_specifier -> INT','type_specifier',1,'p_type_specifier','analizador_sintactico.py',44),
+  ('type_specifier -> FLOAT','type_specifier',1,'p_type_specifier','analizador_sintactico.py',45),
+  ('type_specifier -> CHAR','type_specifier',1,'p_type_specifier','analizador_sintactico.py',46),
+  ('expression -> ID','expression',1,'p_expression','analizador_sintactico.py',49),
+  ('expression -> NUMBER','expression',1,'p_expression','analizador_sintactico.py',50),
+  ('expression -> ID ASSIGN expression','expression',3,'p_expression','analizador_sintactico.py',51),
+  ('expression -> expression PLUS expression','expression',3,'p_expression','analizador_sintactico.py',52),
+  ('expression -> expression PLUS PLUS expression','expression',4,'p_expression','analizador_sintactico.py',53),
+  ('expression -> expression MINUS expression','expression',3,'p_expression','analizador_sintactico.py',54),
+  ('expression -> expression LT expression','expression',3,'p_expression','analizador_sintactico.py',55),
+  ('expression -> expression LE expression','expression',3,'p_expression','analizador_sintactico.py',56),
+  ('expression -> expression GT expression','expression',3,'p_expression','analizador_sintactico.py',57),
+  ('expression -> expression GE expression','expression',3,'p_expression','analizador_sintactico.py',58),
+  ('expression -> expression EQ expression','expression',3,'p_expression','analizador_sintactico.py',59),
+  ('expression -> expression NE expression','expression',3,'p_expression','analizador_sintactico.py',60),
+  ('expression -> STRING_LITERAL','expression',1,'p_expression','analizador_sintactico.py',61),
+  ('empty -> <empty>','empty',0,'p_empty','analizador_sintactico.py',64),
 ]
